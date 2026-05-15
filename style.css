@@ -34,7 +34,7 @@ body{
     position:relative;
 }
 
-/* BACKGROUND OVERLAY */
+/* BACKGROUND */
 
 .bg-glow{
 
@@ -101,37 +101,18 @@ body{
     gap:14px;
 }
 
-.logo-circle{
+.main-logo{
 
-    width:52px;
-    height:52px;
+    width:54px;
 
-    border:1px solid rgba(255,220,180,0.7);
+    height:54px;
 
-    border-radius:50%;
+    object-fit:contain;
 
-    display:flex;
+    filter:
+    drop-shadow(0 2px 10px rgba(0,0,0,0.25));
 
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    color:#f2d1b2;
-
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:20px;
-
-    background:
-    rgba(255,255,255,0.04);
-
-    backdrop-filter:blur(10px);
-}
-
-.logo-circle span{
-    margin-top:-4px;
+    opacity:0.95;
 }
 
 .logo-text{
@@ -141,6 +122,11 @@ body{
     font-size:11px;
 
     color:#f7e8dc;
+
+    font-weight:500;
+
+    text-shadow:
+    0 2px 10px rgba(0,0,0,0.35);
 }
 
 /* HERO */
@@ -167,14 +153,6 @@ body{
     40px 10px;
 
     text-align:center;
-
-    background:none;
-
-    border:none;
-
-    box-shadow:none;
-
-    backdrop-filter:none;
 
     animation:
     floatCard 5s ease-in-out infinite;
@@ -264,14 +242,10 @@ body{
 
     display:flex;
 
-    flex-direction:column;
-
-    align-items:center;
-
-    gap:16px;
+    justify-content:center;
 }
 
-/* HERO BUTTON */
+/* BUTTON */
 
 .invite-btn{
 
@@ -306,95 +280,15 @@ body{
     1px solid rgba(255,220,170,0.75);
 
     box-shadow:
-    0 0 0 1px rgba(255,215,160,0.25),
-    0 0 25px rgba(255,215,160,0.18),
     0 14px 34px rgba(122,0,31,0.28);
 
     overflow:hidden;
-}
-
-.invite-btn::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-    left:-120%;
-
-    width:80%;
-    height:100%;
-
-    background:
-    linear-gradient(
-        120deg,
-        transparent,
-        rgba(255,255,255,0.55),
-        transparent
-    );
-
-    transform:skewX(-20deg);
-
-    animation:
-    shine 4s infinite;
-}
-
-@keyframes shine{
-
-    0%{
-        left:-120%;
-    }
-
-    100%{
-        left:150%;
-    }
 }
 
 /* SECTION */
 
 .section{
     padding:42px 16px;
-}
-
-.section-title{
-
-    text-align:center;
-
-    font-family:
-    'Cormorant Garamond',
-    serif;
-
-    font-size:34px;
-
-    font-weight:400;
-
-    margin-bottom:28px;
-
-    color:#fff4ee;
-
-    text-shadow:
-    0 4px 16px rgba(0,0,0,0.35);
-}
-
-/* GLASS CARD */
-
-.glass-card{
-
-    background:
-    rgba(255,255,255,0.10);
-
-    backdrop-filter:blur(18px);
-
-    border:
-    1px solid rgba(255,255,255,0.18);
-
-    border-radius:28px;
-
-    box-shadow:
-    0 10px 30px rgba(0,0,0,0.18),
-    0 25px 60px rgba(0,0,0,0.25),
-    0 50px 100px rgba(0,0,0,0.18),
-    inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
 /* INVITATION */
@@ -405,7 +299,21 @@ body{
 
     overflow:hidden;
 
-    padding:52px 26px;
+    width:100%;
+
+    aspect-ratio:2/3;
+
+    max-width:420px;
+
+    margin:auto;
+
+    padding:48px 26px 42px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
 
     text-align:center;
 
@@ -423,32 +331,6 @@ body{
     0 12px 40px rgba(0,0,0,0.22),
     0 35px 80px rgba(0,0,0,0.30),
     0 60px 140px rgba(0,0,0,0.24);
-
-    transform-style:preserve-3d;
-
-    animation:
-    invitationFloat 8s ease-in-out infinite;
-}
-
-@keyframes invitationFloat{
-
-    0%{
-        transform:
-        translateY(0px)
-        scale(1);
-    }
-
-    50%{
-        transform:
-        translateY(-10px)
-        scale(1.01);
-    }
-
-    100%{
-        transform:
-        translateY(0px)
-        scale(1);
-    }
 }
 
 .invitation-card::before{
@@ -467,9 +349,7 @@ body{
 
     background-repeat:no-repeat;
 
-    opacity:0.78;
-
-    pointer-events:none;
+    opacity:0.86;
 
     z-index:0;
 }
@@ -488,15 +368,7 @@ body{
         180deg,
         rgba(255,252,248,0.52),
         rgba(255,248,244,0.60)
-    ),
-
-    radial-gradient(
-        circle at center,
-        rgba(255,255,255,0.22),
-        transparent 70%
     );
-
-    pointer-events:none;
 
     z-index:1;
 }
@@ -510,67 +382,59 @@ body{
 
 .section-mini-title{
 
-    font-size:13px;
+    font-size:11px;
 
-    letter-spacing:7px;
+    letter-spacing:6px;
 
-    margin-bottom:42px;
+    margin-bottom:28px;
 
     font-weight:700;
 
     color:#7A5B4E;
-
-    text-shadow:
-    0 1px 4px rgba(255,255,255,0.35);
 }
 
 .family-grid{
 
     display:grid;
 
-    gap:34px;
+    grid-template-columns:1fr 1fr;
 
-    margin-bottom:40px;
+    gap:20px;
+
+    margin-bottom:34px;
 }
 
 .person-name{
 
-    font-size:32px;
+    font-size:22px;
 
     font-weight:700;
 
-    letter-spacing:1px;
-
-    margin-bottom:18px;
+    margin-bottom:14px;
 
     color:#5A382D;
-
-    text-shadow:
-    0 1px 8px rgba(255,255,255,0.25);
 }
 
 .parent-text{
 
-    font-size:18px;
+    font-size:14px;
 
-    line-height:1.9;
+    line-height:1.8;
 
     font-weight:600;
 
-    margin-bottom:22px;
+    margin-bottom:16px;
 
     color:#6E5144;
 }
 
 .address-text{
 
-    font-size:17px;
+    font-size:13px;
 
-    line-height:2.1;
+    line-height:1.9;
 
     color:#85695D;
-
-    font-weight:500;
 }
 
 .couple-title{
@@ -579,20 +443,17 @@ body{
     'Cormorant Garamond',
     serif;
 
-    font-size:82px;
+    font-size:54px;
 
-    line-height:1.05;
+    line-height:1;
 
     font-weight:500;
 
-    margin-top:30px;
+    margin-bottom:18px;
 
     color:#4A2E25;
 
-    text-shadow:
-    0 2px 14px rgba(255,255,255,0.18);
-
-    letter-spacing:1px;
+    white-space:nowrap;
 }
 
 .couple-title span{
@@ -600,21 +461,18 @@ body{
     color:#C89B5B;
 
     margin:
-    0 10px;
-
-    text-shadow:
-    0 0 12px rgba(200,155,91,0.25);
+    0 6px;
 }
 
 .wedding-date{
 
-    margin-top:34px;
+    margin-top:10px;
 
-    line-height:2.2;
+    line-height:2;
 
-    letter-spacing:3px;
+    letter-spacing:2px;
 
-    font-size:18px;
+    font-size:14px;
 
     font-weight:700;
 
@@ -623,53 +481,105 @@ body{
 
 .blessing-text{
 
-    margin-top:38px;
+    margin-top:24px;
 
-    line-height:2.2;
+    line-height:1.9;
 
     color:#6B4C40;
 
-    font-size:26px;
+    font-size:22px;
 
-    letter-spacing:0.5px;
+    letter-spacing:0.3px;
 
     font-weight:400;
 
     font-family:
     'Great Vibes',
     cursive;
-
-    text-shadow:
-    0 1px 8px rgba(255,255,255,0.18);
 }
 
-/* COUNTDOWN */
+/* COUNTDOWN + CALENDAR */
 
-.countdown-card{
+.countdown-card,
+.calendar-card{
 
     position:relative;
 
-    padding:40px 18px;
+    overflow:hidden;
+
+    padding:42px 22px;
 
     text-align:center;
 
-    overflow:hidden;
+    border-radius:30px;
 
     background:
-    rgba(255,245,238,0.10);
+    rgba(255, 255, 255, 0.062);
 
     backdrop-filter:blur(20px);
 
     border:
-    1px solid rgba(255,255,255,0.16);
-
-    border-radius:30px;
+    1px solid rgba(0, 0, 0, 0.062);
 
     box-shadow:
     0 12px 36px rgba(0,0,0,0.20),
-    0 28px 70px rgba(0,0,0,0.28),
-    0 55px 120px rgba(0,0,0,0.18);
+    0 28px 70px rgba(0,0,0,0.28);
 }
+
+/* CALENDAR BACKGROUND */
+
+.calendar-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:url("calender.png");
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+    opacity:0.5;
+
+    pointer-events:none;
+
+    z-index:0;
+}
+
+.calendar-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+    linear-gradient(
+        180deg,
+        rgba(255, 224, 238, 0),
+        rgba(255, 255, 255, 0)
+    );
+
+    pointer-events:none;
+
+    z-index:1;
+}
+
+.calendar-card > *{
+
+    position:relative;
+
+    z-index:2;
+}
+
+/* COUNTDOWN BACKGROUND */
 
 .countdown-card::before{
 
@@ -705,6 +615,7 @@ body{
     inset:0;
 
     background:
+
     linear-gradient(
         180deg,
         rgba(0,0,0,0.06),
@@ -723,47 +634,42 @@ body{
     z-index:2;
 }
 
-.countdown-scroll{
+.section-title{
 
-    width:100%;
+    font-family:
+    'Cormorant Garamond',
+    serif;
 
-    overflow-x:auto;
+    font-size:34px;
 
-    padding-bottom:8px;
-}
+    margin-bottom:24px;
 
-.countdown-scroll::-webkit-scrollbar{
-    display:none;
+    color:#fff4ee;
 }
 
 .countdown-row{
 
     display:flex;
 
+    justify-content:center;
+
     gap:12px;
 
-    min-width:max-content;
+    margin-bottom:22px;
 }
 
 .time-box{
 
-    min-width:92px;
+    min-width:80px;
 
-    padding:
-    22px 12px;
+    padding:20px 10px;
 
-    border-radius:22px;
+    border-radius:20px;
 
     background:
     rgba(255,255,255,0.12);
 
-    backdrop-filter:blur(12px);
-
-    border:
-    1px solid rgba(255,255,255,0.16);
-
-    box-shadow:
-    0 10px 25px rgba(0,0,0,0.12);
+    backdrop-filter:blur(10px);
 }
 
 .time-box h3{
@@ -772,13 +678,9 @@ body{
     'Cormorant Garamond',
     serif;
 
-    font-size:40px;
-
-    font-weight:500;
+    font-size:34px;
 
     color:#fff4ef;
-
-    margin-bottom:8px;
 }
 
 .time-box span{
@@ -786,51 +688,9 @@ body{
     font-size:10px;
 
     letter-spacing:2px;
-
-    color:#f0d8ca;
 }
 
-.countdown-text{
-
-    margin-top:22px;
-
-    font-size:11px;
-
-    letter-spacing:2px;
-
-    line-height:1.7;
-
-    color:#f0ddd2;
-}
-
-/* CALENDAR */
-
-.calendar-card{
-
-    position:relative;
-
-    overflow:hidden;
-
-    padding:42px 22px;
-
-    text-align:center;
-
-    background:
-    rgba(255,245,238,0.10);
-
-    backdrop-filter:blur(20px);
-
-    border:
-    1px solid rgba(255,255,255,0.16);
-
-    border-radius:30px;
-
-    box-shadow:
-    0 12px 36px rgba(0,0,0,0.20),
-    0 28px 70px rgba(0,0,0,0.28),
-    0 55px 120px rgba(0,0,0,0.18);
-}
-
+.countdown-text,
 .calendar-subtext{
 
     font-size:11px;
@@ -839,22 +699,16 @@ body{
 
     line-height:1.8;
 
-    margin-top:-10px;
-
-    margin-bottom:28px;
-
     color:#f0ddd2;
 }
 
 .calendar-btn{
 
-    position:relative;
-
     display:flex;
 
-    align-items:center;
-
     justify-content:center;
+
+    align-items:center;
 
     width:100%;
 
@@ -879,41 +733,7 @@ body{
 
     font-weight:600;
 
-    border:
-    1px solid rgba(255,220,170,0.7);
-
-    box-shadow:
-    0 0 0 1px rgba(255,215,160,0.25),
-    0 0 25px rgba(255,215,160,0.18),
-    0 10px 30px rgba(122,0,31,0.22);
-
-    overflow:hidden;
-}
-
-.calendar-btn::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-    left:-120%;
-
-    width:80%;
-    height:100%;
-
-    background:
-    linear-gradient(
-        120deg,
-        transparent,
-        rgba(255,255,255,0.55),
-        transparent
-    );
-
-    transform:skewX(-20deg);
-
-    animation:
-    shine 4s infinite;
+    margin-top:28px;
 }
 
 /* FOOTER */
@@ -934,11 +754,7 @@ body{
 
     font-size:40px;
 
-    font-weight:300;
-
     margin-bottom:12px;
-
-    color:#fff4ee;
 }
 
 .footer p{
@@ -946,13 +762,17 @@ body{
     font-size:10px;
 
     letter-spacing:3px;
-
-    color:#ead5c8;
 }
 
 /* MOBILE */
 
 @media(max-width:480px){
+
+    .main-logo{
+
+        width:50px;
+        height:50px;
+    }
 
     .hero-title{
         font-size:86px;
@@ -962,82 +782,36 @@ body{
         font-size:36px;
     }
 
-    .hero-subtext{
-        font-size:14px;
-    }
+    .invitation-card{
 
-    .invite-btn{
-        font-size:14px;
+        padding:42px 18px 36px;
     }
 
     .person-name{
-        font-size:24px;
+        font-size:18px;
     }
 
     .parent-text{
-        font-size:14px;
+        font-size:12px;
     }
 
     .address-text{
-        font-size:14px;
+        font-size:11px;
     }
 
     .couple-title{
-        font-size:52px;
-    }
-
-    .wedding-date{
-        font-size:14px;
-    }
-
-    .blessing-text{
-        font-size:20px;
-        line-height:2;
-    }
-}
-
-/* TABLET */
-
-@media(min-width:768px){
-
-    .hero-title{
-        font-size:110px;
-    }
-
-    .hero-title span{
         font-size:42px;
     }
 
-    .family-grid{
-        grid-template-columns:1fr 1fr;
+    .wedding-date{
+        font-size:12px;
+    }
+
+    .blessing-text{
+        font-size:18px;
     }
 
     .countdown-row{
-        justify-content:center;
-        width:100%;
-    }
-
-    .hero-card{
-        max-width:850px;
-    }
-
-    .section{
-        padding:55px 28px;
-    }
-
-    .invitation-card{
-        padding:80px 70px;
-    }
-
-    .family-grid{
-        gap:50px;
-    }
-
-    .couple-title{
-        font-size:82px;
-    }
-
-    .person-name{
-        font-size:24px;
+        flex-wrap:wrap;
     }
 }
