@@ -150,7 +150,7 @@ body{
     min-height:100svh;
 
     padding:
-    110px 18px 30px;
+    90px 22px 40px;
 
     display:flex;
 
@@ -164,7 +164,7 @@ body{
     width:100%;
 
     padding:
-    70px 24px;
+    40px 10px;
 
     text-align:center;
 
@@ -195,60 +195,51 @@ body{
     }
 }
 
-.small-heading{
-
-    font-size:10px;
-
-    letter-spacing:4px;
-
-    line-height:1.8;
-
-    margin-bottom:35px;
-
-    color:#f2ddd0;
-}
-
 .hero-title{
 
     font-family:
     'Cormorant Garamond',
     serif;
 
-    font-size:58px;
+    font-size:78px;
 
-    font-weight:300;
+    font-weight:400;
 
-    line-height:0.95;
+    line-height:0.92;
 
     color:#fff7f2;
 
     text-shadow:
-    0 6px 24px rgba(0,0,0,0.35);
+    0 8px 30px rgba(0,0,0,0.45);
+
+    margin-bottom:18px;
 }
 
 .hero-title span{
 
     display:block;
 
-    margin:14px 0;
+    margin:18px 0;
 
-    font-size:26px;
+    font-size:34px;
 
     color:#e8c28e;
 
-    letter-spacing:6px;
+    letter-spacing:8px;
+
+    font-weight:500;
 }
 
 .gold-divider{
 
-    width:110px;
+    width:130px;
 
-    height:1px;
+    height:2px;
 
     background:#e4c089;
 
     margin:
-    35px auto 25px;
+    38px auto 32px;
 
     box-shadow:
     0 0 18px rgba(228,192,137,0.45);
@@ -256,15 +247,17 @@ body{
 
 .hero-subtext{
 
-    font-size:10px;
+    font-size:13px;
 
-    letter-spacing:3px;
+    letter-spacing:4px;
 
-    line-height:1.8;
+    line-height:2;
 
-    margin-bottom:35px;
+    margin-bottom:42px;
 
     color:#f3e2d8;
+
+    font-weight:500;
 }
 
 .hero-buttons{
@@ -286,36 +279,36 @@ body{
 
     width:100%;
 
-    max-width:300px;
+    max-width:340px;
 
-    padding:16px 20px;
+    padding:20px 24px;
 
-    border-radius:14px;
+    border-radius:16px;
 
     background:
     linear-gradient(
         135deg,
         #7b001f,
-        #b11f3b
+        #c2184b
     );
 
     color:white;
 
     text-decoration:none;
 
-    letter-spacing:2px;
+    letter-spacing:3px;
 
-    font-size:12px;
+    font-size:14px;
 
-    font-weight:600;
+    font-weight:700;
 
     border:
-    1px solid rgba(255,220,170,0.7);
+    1px solid rgba(255,220,170,0.75);
 
     box-shadow:
     0 0 0 1px rgba(255,215,160,0.25),
     0 0 25px rgba(255,215,160,0.18),
-    0 10px 30px rgba(122,0,31,0.22);
+    0 14px 34px rgba(122,0,31,0.28);
 
     overflow:hidden;
 }
@@ -493,8 +486,14 @@ body{
 
     linear-gradient(
         180deg,
-        rgba(0,0,0,0.08),
-        rgba(0,0,0,0.16)
+        rgba(255,252,248,0.52),
+        rgba(255,248,244,0.60)
+    ),
+
+    radial-gradient(
+        circle at center,
+        rgba(255,255,255,0.22),
+        transparent 70%
     );
 
     pointer-events:none;
@@ -511,15 +510,18 @@ body{
 
 .section-mini-title{
 
-    font-size:10px;
+    font-size:13px;
 
-    letter-spacing:5px;
+    letter-spacing:7px;
 
-    margin-bottom:36px;
+    margin-bottom:42px;
 
-    font-weight:600;
+    font-weight:700;
 
-    color:#f6e4d6;
+    color:#7A5B4E;
+
+    text-shadow:
+    0 1px 4px rgba(255,255,255,0.35);
 }
 
 .family-grid{
@@ -533,37 +535,42 @@ body{
 
 .person-name{
 
-    font-size:20px;
+    font-size:32px;
 
     font-weight:700;
 
     letter-spacing:1px;
 
-    margin-bottom:16px;
+    margin-bottom:18px;
 
-    color:#fff3eb;
+    color:#5A382D;
+
+    text-shadow:
+    0 1px 8px rgba(255,255,255,0.25);
 }
 
 .parent-text{
 
-    font-size:13px;
+    font-size:18px;
 
     line-height:1.9;
 
-    font-weight:500;
+    font-weight:600;
 
-    margin-bottom:18px;
+    margin-bottom:22px;
 
-    color:#f3ddd1;
+    color:#6E5144;
 }
 
 .address-text{
 
-    font-size:12px;
+    font-size:17px;
 
-    line-height:2;
+    line-height:2.1;
 
-    color:#ead0c1;
+    color:#85695D;
+
+    font-weight:500;
 }
 
 .couple-title{
@@ -572,48 +579,68 @@ body{
     'Cormorant Garamond',
     serif;
 
-    font-size:56px;
+    font-size:82px;
 
-    line-height:0.95;
+    line-height:1.05;
 
-    font-weight:400;
+    font-weight:500;
 
-    margin-top:10px;
+    margin-top:30px;
 
-    color:#fff5ef;
+    color:#4A2E25;
+
+    text-shadow:
+    0 2px 14px rgba(255,255,255,0.18);
+
+    letter-spacing:1px;
 }
 
 .couple-title span{
 
-    color:#e5c18e;
+    color:#C89B5B;
+
+    margin:
+    0 10px;
+
+    text-shadow:
+    0 0 12px rgba(200,155,91,0.25);
 }
 
 .wedding-date{
 
-    margin-top:26px;
+    margin-top:34px;
 
-    line-height:2;
+    line-height:2.2;
 
-    letter-spacing:2px;
+    letter-spacing:3px;
 
-    font-size:12px;
+    font-size:18px;
 
-    font-weight:600;
+    font-weight:700;
 
-    color:#f3ddd0;
+    color:#65483C;
 }
 
 .blessing-text{
 
-    margin-top:24px;
+    margin-top:38px;
 
-    line-height:2;
+    line-height:2.2;
 
-    color:#f0d7ca;
+    color:#6B4C40;
 
-    font-size:12px;
+    font-size:26px;
 
-    letter-spacing:1px;
+    letter-spacing:0.5px;
+
+    font-weight:400;
+
+    font-family:
+    'Great Vibes',
+    cursive;
+
+    text-shadow:
+    0 1px 8px rgba(255,255,255,0.18);
 }
 
 /* COUNTDOWN */
@@ -819,8 +846,6 @@ body{
     color:#f0ddd2;
 }
 
-/* CALENDAR BUTTON */
-
 .calendar-btn{
 
     position:relative;
@@ -925,16 +950,62 @@ body{
     color:#ead5c8;
 }
 
+/* MOBILE */
+
+@media(max-width:480px){
+
+    .hero-title{
+        font-size:86px;
+    }
+
+    .hero-title span{
+        font-size:36px;
+    }
+
+    .hero-subtext{
+        font-size:14px;
+    }
+
+    .invite-btn{
+        font-size:14px;
+    }
+
+    .person-name{
+        font-size:24px;
+    }
+
+    .parent-text{
+        font-size:14px;
+    }
+
+    .address-text{
+        font-size:14px;
+    }
+
+    .couple-title{
+        font-size:52px;
+    }
+
+    .wedding-date{
+        font-size:14px;
+    }
+
+    .blessing-text{
+        font-size:20px;
+        line-height:2;
+    }
+}
+
 /* TABLET */
 
 @media(min-width:768px){
 
     .hero-title{
-        font-size:90px;
+        font-size:110px;
     }
 
     .hero-title span{
-        font-size:34px;
+        font-size:42px;
     }
 
     .family-grid{
