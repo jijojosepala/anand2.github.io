@@ -9,22 +9,32 @@ html{
 }
 
 body{
+
     font-family:'Montserrat',sans-serif;
 
     background:
     linear-gradient(
-        180deg,
-        #fffaf6 0%,
-        #f8eee8 40%,
-        #f2e5dd 100%
-    );
+        rgba(8,8,12,0.55),
+        rgba(8,8,12,0.62)
+    ),
+    url("site_background.png");
 
-    color:#5b4a44;
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+    background-attachment:fixed;
+
+    color:#f5ebe4;
 
     overflow-x:hidden;
+
+    position:relative;
 }
 
-/* BACKGROUND */
+/* BACKGROUND OVERLAY */
 
 .bg-glow{
 
@@ -32,20 +42,29 @@ body{
 
     inset:0;
 
-    z-index:-2;
+    z-index:-1;
 
     background:
+
     radial-gradient(
-        circle at top left,
-        rgba(255,255,255,0.8),
-        transparent 30%
+        circle at top,
+        rgba(255,255,255,0.08),
+        transparent 40%
     ),
 
     radial-gradient(
-        circle at bottom right,
-        rgba(255,240,235,0.9),
-        transparent 35%
+        circle at bottom,
+        rgba(255,220,210,0.06),
+        transparent 45%
+    ),
+
+    linear-gradient(
+        180deg,
+        rgba(0,0,0,0.18),
+        rgba(0,0,0,0.30)
     );
+
+    backdrop-filter:blur(2px);
 }
 
 /* NAVBAR */
@@ -68,6 +87,9 @@ body{
     justify-content:center;
 
     backdrop-filter:blur(12px);
+
+    background:
+    rgba(0,0,0,0.12);
 }
 
 .logo-wrap{
@@ -84,7 +106,7 @@ body{
     width:52px;
     height:52px;
 
-    border:1px solid #c79f67;
+    border:1px solid rgba(255,220,180,0.7);
 
     border-radius:50%;
 
@@ -96,11 +118,16 @@ body{
 
     align-items:center;
 
-    color:#b48a57;
+    color:#f2d1b2;
 
     font-family:'Cormorant Garamond',serif;
 
     font-size:20px;
+
+    background:
+    rgba(255,255,255,0.04);
+
+    backdrop-filter:blur(10px);
 }
 
 .logo-circle span{
@@ -112,6 +139,8 @@ body{
     letter-spacing:3px;
 
     font-size:11px;
+
+    color:#f7e8dc;
 }
 
 /* HERO */
@@ -134,23 +163,18 @@ body{
 
     width:100%;
 
-    border-radius:34px;
-
     padding:
     70px 24px;
 
-    background:
-    rgba(255,255,255,0.45);
-
-    backdrop-filter:blur(20px);
-
-    border:
-    1px solid rgba(255,255,255,0.6);
-
-    box-shadow:
-    0 25px 60px rgba(120,90,70,0.12);
-
     text-align:center;
+
+    background:none;
+
+    border:none;
+
+    box-shadow:none;
+
+    backdrop-filter:none;
 
     animation:
     floatCard 5s ease-in-out infinite;
@@ -180,6 +204,8 @@ body{
     line-height:1.8;
 
     margin-bottom:35px;
+
+    color:#f2ddd0;
 }
 
 .hero-title{
@@ -193,6 +219,11 @@ body{
     font-weight:300;
 
     line-height:0.95;
+
+    color:#fff7f2;
+
+    text-shadow:
+    0 6px 24px rgba(0,0,0,0.35);
 }
 
 .hero-title span{
@@ -203,7 +234,7 @@ body{
 
     font-size:26px;
 
-    color:#c79a63;
+    color:#e8c28e;
 
     letter-spacing:6px;
 }
@@ -214,10 +245,13 @@ body{
 
     height:1px;
 
-    background:#d6b58e;
+    background:#e4c089;
 
     margin:
     35px auto 25px;
+
+    box-shadow:
+    0 0 18px rgba(228,192,137,0.45);
 }
 
 .hero-subtext{
@@ -229,6 +263,8 @@ body{
     line-height:1.8;
 
     margin-bottom:35px;
+
+    color:#f3e2d8;
 }
 
 .hero-buttons{
@@ -242,11 +278,15 @@ body{
     gap:16px;
 }
 
+/* HERO BUTTON */
+
 .invite-btn{
+
+    position:relative;
 
     width:100%;
 
-    max-width:280px;
+    max-width:300px;
 
     padding:16px 20px;
 
@@ -267,22 +307,57 @@ body{
 
     font-size:12px;
 
+    font-weight:600;
+
+    border:
+    1px solid rgba(255,220,170,0.7);
+
     box-shadow:
+    0 0 0 1px rgba(255,215,160,0.25),
+    0 0 25px rgba(255,215,160,0.18),
     0 10px 30px rgba(122,0,31,0.22);
+
+    overflow:hidden;
 }
 
-.story-btn{
+.invite-btn::before{
 
-    text-decoration:none;
+    content:"";
 
-    color:#7d665f;
+    position:absolute;
 
-    letter-spacing:2px;
+    top:0;
+    left:-120%;
 
-    font-size:12px;
+    width:80%;
+    height:100%;
+
+    background:
+    linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.55),
+        transparent
+    );
+
+    transform:skewX(-20deg);
+
+    animation:
+    shine 4s infinite;
 }
 
-/* GENERAL SECTION */
+@keyframes shine{
+
+    0%{
+        left:-120%;
+    }
+
+    100%{
+        left:150%;
+    }
+}
+
+/* SECTION */
 
 .section{
     padding:42px 16px;
@@ -301,22 +376,32 @@ body{
     font-weight:400;
 
     margin-bottom:28px;
+
+    color:#fff4ee;
+
+    text-shadow:
+    0 4px 16px rgba(0,0,0,0.35);
 }
+
+/* GLASS CARD */
 
 .glass-card{
 
     background:
-    rgba(255,255,255,0.5);
+    rgba(255,255,255,0.10);
 
     backdrop-filter:blur(18px);
 
     border:
-    1px solid rgba(255,255,255,0.7);
+    1px solid rgba(255,255,255,0.18);
 
     border-radius:28px;
 
     box-shadow:
-    0 20px 50px rgba(120,90,70,0.10);
+    0 10px 30px rgba(0,0,0,0.18),
+    0 25px 60px rgba(0,0,0,0.25),
+    0 50px 100px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
 /* INVITATION */
@@ -327,29 +412,51 @@ body{
 
     overflow:hidden;
 
-    padding:38px 22px;
+    padding:52px 26px;
 
     text-align:center;
 
-    background:
-    linear-gradient(
-        180deg,
-        rgba(255,250,246,0.82),
-        rgba(248,238,232,0.88)
-    );
+    border-radius:34px;
 
-    backdrop-filter:blur(18px);
+    background:
+    rgba(255,245,238,0.14);
+
+    backdrop-filter:blur(24px);
 
     border:
-    1px solid rgba(255,255,255,0.7);
-
-    border-radius:28px;
+    1px solid rgba(255,255,255,0.18);
 
     box-shadow:
-    0 20px 50px rgba(120,90,70,0.10);
+    0 12px 40px rgba(0,0,0,0.22),
+    0 35px 80px rgba(0,0,0,0.30),
+    0 60px 140px rgba(0,0,0,0.24);
+
+    transform-style:preserve-3d;
+
+    animation:
+    invitationFloat 8s ease-in-out infinite;
 }
 
-/* Decorative Floral Background */
+@keyframes invitationFloat{
+
+    0%{
+        transform:
+        translateY(0px)
+        scale(1);
+    }
+
+    50%{
+        transform:
+        translateY(-10px)
+        scale(1.01);
+    }
+
+    100%{
+        transform:
+        translateY(0px)
+        scale(1);
+    }
+}
 
 .invitation-card::before{
 
@@ -359,7 +466,7 @@ body{
 
     inset:0;
 
-    background-image:url("invitation_bg(2).png");
+    background-image:url("invitation.png");
 
     background-size:cover;
 
@@ -367,16 +474,12 @@ body{
 
     background-repeat:no-repeat;
 
-    opacity:0.26;
-
-    mix-blend-mode:screen;
+    opacity:0.78;
 
     pointer-events:none;
 
     z-index:0;
 }
-
-/* Soft Blending Overlay */
 
 .invitation-card::after{
 
@@ -387,24 +490,17 @@ body{
     inset:0;
 
     background:
-    radial-gradient(
-        circle at top,
-        rgba(255,255,255,0.45),
-        transparent 60%
-    ),
 
     linear-gradient(
         180deg,
-        rgba(255,248,244,0.20),
-        rgba(244,232,224,0.16)
+        rgba(0,0,0,0.08),
+        rgba(0,0,0,0.16)
     );
 
     pointer-events:none;
 
     z-index:1;
 }
-
-/* Keep Content Above Background */
 
 .invitation-card > *{
 
@@ -417,53 +513,57 @@ body{
 
     font-size:10px;
 
-    letter-spacing:4px;
+    letter-spacing:5px;
 
-    margin-bottom:30px;
+    margin-bottom:36px;
+
+    font-weight:600;
+
+    color:#f6e4d6;
 }
 
 .family-grid{
 
     display:grid;
 
-    gap:28px;
+    gap:34px;
 
-    margin-bottom:34px;
+    margin-bottom:40px;
 }
 
 .person-name{
 
-    font-size:18px;
+    font-size:20px;
 
-    font-weight:600;
+    font-weight:700;
 
     letter-spacing:1px;
 
-    margin-bottom:14px;
+    margin-bottom:16px;
 
-    color:#7b001f;
+    color:#fff3eb;
 }
 
 .parent-text{
 
     font-size:13px;
 
-    line-height:1.8;
+    line-height:1.9;
 
     font-weight:500;
 
-    margin-bottom:16px;
+    margin-bottom:18px;
 
-    color:#6d5b54;
+    color:#f3ddd1;
 }
 
 .address-text{
 
     font-size:12px;
 
-    line-height:1.9;
+    line-height:2;
 
-    color:#8a776e;
+    color:#ead0c1;
 }
 
 .couple-title{
@@ -472,37 +572,48 @@ body{
     'Cormorant Garamond',
     serif;
 
-    font-size:50px;
+    font-size:56px;
 
-    line-height:1;
+    line-height:0.95;
 
-    font-weight:300;
+    font-weight:400;
+
+    margin-top:10px;
+
+    color:#fff5ef;
 }
 
 .couple-title span{
-    color:#c89d67;
+
+    color:#e5c18e;
 }
 
 .wedding-date{
 
-    margin-top:22px;
+    margin-top:26px;
 
-    line-height:1.9;
+    line-height:2;
 
     letter-spacing:2px;
 
     font-size:12px;
+
+    font-weight:600;
+
+    color:#f3ddd0;
 }
 
 .blessing-text{
 
-    margin-top:22px;
+    margin-top:24px;
 
-    line-height:1.9;
+    line-height:2;
 
-    color:#786861;
+    color:#f0d7ca;
 
     font-size:12px;
+
+    letter-spacing:1px;
 }
 
 /* COUNTDOWN */
@@ -518,21 +629,19 @@ body{
     overflow:hidden;
 
     background:
-    linear-gradient(
-        180deg,
-        rgba(255,250,246,0.72),
-        rgba(248,238,232,0.78)
-    );
+    rgba(255,245,238,0.10);
 
-    backdrop-filter:blur(18px);
+    backdrop-filter:blur(20px);
 
     border:
-    1px solid rgba(255,255,255,0.7);
+    1px solid rgba(255,255,255,0.16);
 
-    border-radius:28px;
+    border-radius:30px;
 
     box-shadow:
-    0 20px 50px rgba(120,90,70,0.10);
+    0 12px 36px rgba(0,0,0,0.20),
+    0 28px 70px rgba(0,0,0,0.28),
+    0 55px 120px rgba(0,0,0,0.18);
 }
 
 .countdown-card::before{
@@ -551,7 +660,7 @@ body{
 
     background-repeat:no-repeat;
 
-    opacity:0.28;
+    opacity:0.22;
 
     mix-blend-mode:screen;
 
@@ -569,16 +678,10 @@ body{
     inset:0;
 
     background:
-    radial-gradient(
-        circle at top,
-        rgba(255,255,255,0.45),
-        transparent 60%
-    ),
-
     linear-gradient(
         180deg,
-        rgba(255,248,244,0.25),
-        rgba(244,232,224,0.18)
+        rgba(0,0,0,0.06),
+        rgba(0,0,0,0.12)
     );
 
     pointer-events:none;
@@ -624,10 +727,16 @@ body{
 
     border-radius:22px;
 
-    background:white;
+    background:
+    rgba(255,255,255,0.12);
+
+    backdrop-filter:blur(12px);
+
+    border:
+    1px solid rgba(255,255,255,0.16);
 
     box-shadow:
-    0 10px 25px rgba(0,0,0,0.04);
+    0 10px 25px rgba(0,0,0,0.12);
 }
 
 .time-box h3{
@@ -640,7 +749,7 @@ body{
 
     font-weight:500;
 
-    color:#8b2d3d;
+    color:#fff4ef;
 
     margin-bottom:8px;
 }
@@ -650,6 +759,8 @@ body{
     font-size:10px;
 
     letter-spacing:2px;
+
+    color:#f0d8ca;
 }
 
 .countdown-text{
@@ -661,15 +772,36 @@ body{
     letter-spacing:2px;
 
     line-height:1.7;
+
+    color:#f0ddd2;
 }
 
 /* CALENDAR */
 
 .calendar-card{
 
+    position:relative;
+
+    overflow:hidden;
+
     padding:42px 22px;
 
     text-align:center;
+
+    background:
+    rgba(255,245,238,0.10);
+
+    backdrop-filter:blur(20px);
+
+    border:
+    1px solid rgba(255,255,255,0.16);
+
+    border-radius:30px;
+
+    box-shadow:
+    0 12px 36px rgba(0,0,0,0.20),
+    0 28px 70px rgba(0,0,0,0.28),
+    0 55px 120px rgba(0,0,0,0.18);
 }
 
 .calendar-subtext{
@@ -683,9 +815,15 @@ body{
     margin-top:-10px;
 
     margin-bottom:28px;
+
+    color:#f0ddd2;
 }
 
+/* CALENDAR BUTTON */
+
 .calendar-btn{
+
+    position:relative;
 
     display:flex;
 
@@ -704,8 +842,8 @@ body{
     background:
     linear-gradient(
         135deg,
-        #efb3bc,
-        #de8d9a
+        #7b001f,
+        #b11f3b
     );
 
     color:white;
@@ -714,8 +852,43 @@ body{
 
     font-size:12px;
 
+    font-weight:600;
+
+    border:
+    1px solid rgba(255,220,170,0.7);
+
     box-shadow:
-    0 12px 28px rgba(222,141,154,0.25);
+    0 0 0 1px rgba(255,215,160,0.25),
+    0 0 25px rgba(255,215,160,0.18),
+    0 10px 30px rgba(122,0,31,0.22);
+
+    overflow:hidden;
+}
+
+.calendar-btn::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-120%;
+
+    width:80%;
+    height:100%;
+
+    background:
+    linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.55),
+        transparent
+    );
+
+    transform:skewX(-20deg);
+
+    animation:
+    shine 4s infinite;
 }
 
 /* FOOTER */
@@ -739,6 +912,8 @@ body{
     font-weight:300;
 
     margin-bottom:12px;
+
+    color:#fff4ee;
 }
 
 .footer p{
@@ -746,6 +921,8 @@ body{
     font-size:10px;
 
     letter-spacing:3px;
+
+    color:#ead5c8;
 }
 
 /* TABLET */
@@ -775,5 +952,21 @@ body{
 
     .section{
         padding:55px 28px;
+    }
+
+    .invitation-card{
+        padding:80px 70px;
+    }
+
+    .family-grid{
+        gap:50px;
+    }
+
+    .couple-title{
+        font-size:82px;
+    }
+
+    .person-name{
+        font-size:24px;
     }
 }
