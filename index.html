@@ -555,6 +555,141 @@
     })();
     </script>
 
+    <!-- BACKGROUND MUSIC: HTML5 audio + floating control -->
+    <audio id="bg-music" preload="auto" loop src="wedding_song.mp3" aria-hidden="true"></audio>
+
+    <button id="music-toggle" class="music-toggle" aria-pressed="false" aria-label="Toggle background music">
+        <span class="music-icon" aria-hidden="true">♪</span>
+    </button>
+
+    <script>
+    (function(){
+        const audio = document.getElementById('bg-music');
+        const btn = document.getElementById('music-toggle');
+        if(!audio || !btn) return;
+
+        const icon = btn.querySelector('.music-icon');
+        const TARGET_VOLUME = 0.4; // soft and elegant
+        const FADE_MS = 2000;
+        let isActive = false; // visual state
+        let interactionBound = false;
+
+        // Helper: fade volume to target over duration
+        function fadeVolumeTo(target, duration){
+            if(typeof target !== 'number') return;
+            const start = performance.now();
+            const from = Math.max(0, Math.min(1, audio.volume));
+            const delta = target - from;
+            if(duration <= 0){ audio.volume = target; return; }
+            function step(now){
+                const t = Math.min(1, (now - start) / duration);
+                audio.volume = Math.max(0, Math.min(1, from + delta * t));
+                if(t < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        function setVisualActive(active){
+            isActive = !!active;
+            if(isActive){
+                btn.classList.add('active');
+                btn.setAttribute('aria-pressed','true');
+                icon.textContent = '♪';
+            } else {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-pressed','false');
+                icon.textContent = '🔇';
+            }
+        }
+
+        // Attempt autoplay with volume 0 (so browsers that allow muted autoplay can start playback)
+        async function tryAutoplay(){
+            try {
+                audio.volume = 0;
+                audio.muted = false; // don't set persistent muted, use volume envelope
+                await audio.play();
+                // If intro overlay present, keep volume 0 and reveal later; otherwise fade in
+                if(!document.getElementById('intro-overlay')){
+                    fadeVolumeTo(TARGET_VOLUME, FADE_MS);
+                }
+                setVisualActive(true);
+            } catch(err){
+                // Autoplay blocked with sound — wait for first user interaction
+                setupInteractionUnlock();
+            }
+        }
+
+        function setupInteractionUnlock(){
+            if(interactionBound) return;
+            interactionBound = true;
+            const onFirst = async function(){
+                try{ audio.volume = 0; await audio.play(); fadeVolumeTo(TARGET_VOLUME, FADE_MS); setVisualActive(true); }
+                catch(e){}
+                removeListeners();
+            };
+            const events = ['touchstart','click','scroll','keydown'];
+            events.forEach(ev => window.addEventListener(ev, onFirst, {passive:true, once:true}));
+            // store remove function
+            function removeListeners(){ events.forEach(ev => window.removeEventListener(ev, onFirst)); }
+        }
+
+        // Integrate with intro overlay: if intro exists, attempt autoplay muted and fade in when overlay is removed
+        (function integrateWithIntro(){
+            const overlay = document.getElementById('intro-overlay');
+            if(!overlay){ tryAutoplay(); return; }
+
+            // Try autoplay while overlay is present (keeps volume 0). If blocked, fallback will bind interactions.
+            tryAutoplay();
+
+            // Watch for overlay removal or for body leaving intro-active state
+            const observer = new MutationObserver(() => {
+                if(!document.getElementById('intro-overlay') || !document.body.classList.contains('intro-active')){
+                    // reveal time: fade audio to target if playback already started
+                    if(!audio.paused){ fadeVolumeTo(TARGET_VOLUME, FADE_MS); setVisualActive(true); }
+                    observer.disconnect();
+                }
+            });
+            observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+            // also watch for DOM removal
+            const bodyObserver = new MutationObserver(() => {
+                if(!document.getElementById('intro-overlay')){ if(!audio.paused) fadeVolumeTo(TARGET_VOLUME, FADE_MS); bodyObserver.disconnect(); }
+            });
+            bodyObserver.observe(document.body, { childList: true, subtree: true });
+        })();
+
+        // Toggle button behaviour: mute/unmute while preserving playback position
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if(audio.paused){
+                // If paused, try to play (user explicitly asked)
+                audio.play().then(()=>{ fadeVolumeTo(TARGET_VOLUME, 600); setVisualActive(true); }).catch(()=>{});
+                setupInteractionUnlock();
+                return;
+            }
+
+            // toggle mute state
+            if(audio.muted || audio.volume === 0){
+                audio.muted = false;
+                fadeVolumeTo(TARGET_VOLUME, 600);
+                setVisualActive(true);
+            } else {
+                // smooth mute: fade to 0 then set muted flag
+                fadeVolumeTo(0, 400);
+                setTimeout(()=>{ audio.muted = true; setVisualActive(false); }, 420);
+            }
+        });
+
+        // Kick off autoplay attempt on load
+        tryAutoplay();
+
+        // Clean up when navigating away
+        window.addEventListener('pagehide', () => {
+            try{ audio.pause(); }catch(e){}
+        });
+
+    })();
+    </script>
+
 </body>
 
 </html>
