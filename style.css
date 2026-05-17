@@ -103,9 +103,9 @@ body{
 
 .main-logo{
 
-    width:54px;
+    width:57px;
 
-    height:54px;
+    height:57px;
 
     object-fit:contain;
 
@@ -119,7 +119,7 @@ body{
 
     letter-spacing:3px;
 
-    font-size:11px;
+    font-size:12px;
 
     color:#f7e8dc;
 
@@ -157,7 +157,7 @@ body{
     text-align:center;
 
     animation:
-    floatCard 5s ease-in-out infinite;
+    floatCard 6.5s cubic-bezier(0.22,1,0.36,1) infinite;
 }
 
 @keyframes floatCard{
@@ -167,7 +167,7 @@ body{
     }
 
     50%{
-        transform:translateY(-8px);
+        transform:translateY(-6px);
     }
 
     100%{
@@ -212,6 +212,8 @@ body{
     font-weight:500;
 
     white-space:nowrap;
+
+    text-shadow:0 0 18px rgba(232,194,142,0.18);
 }
 
 .gold-divider{
@@ -220,13 +222,14 @@ body{
 
     height:2px;
 
-    background:#e4c089;
+    background:linear-gradient(90deg, rgba(255,237,186,1), rgba(228,192,137,1), rgba(255,241,200,1));
 
     margin:
     38px auto 32px;
 
     box-shadow:
-    0 0 18px rgba(228,192,137,0.45);
+    0 0 22px rgba(238,200,132,0.32),
+    inset 0 0 4px rgba(255,243,203,0.28);
 }
 
 .hero-subtext{
@@ -239,11 +242,13 @@ body{
 
     margin-bottom:42px;
 
-    color:#f3e2d8;
+    color:#fbebdf;
 
     font-weight:500;
 
     white-space:nowrap;
+
+    text-shadow:0 2px 16px rgba(255,229,182,0.16);
 }
 
 .hero-buttons{
@@ -878,6 +883,343 @@ body{
     z-index:2;
 }
 
+/* VENUE SECTION */
+
+.venue-section{
+
+    padding:42px 16px 26px;
+}
+
+.venue-section-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    max-width:980px;
+
+    margin:0 auto;
+
+    padding:34px 20px;
+
+    border-radius:36px;
+
+    background:
+    rgba(255,255,250,0.14);
+
+    backdrop-filter:blur(26px);
+
+    -webkit-backdrop-filter:blur(26px);
+
+    border:1px solid rgba(255,255,255,0.16);
+
+    box-shadow:
+    0 20px 50px rgba(0,0,0,0.16),
+    0 32px 90px rgba(0,0,0,0.18);
+}
+
+.venue-section-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:radial-gradient(circle at top, rgba(255,244,220,0.12), transparent 38%);
+}
+
+.venue-section-title{
+
+    color:#f7e3d1;
+
+    text-shadow:0 0 18px rgba(241,203,141,0.16);
+
+    margin:0 auto 28px;
+
+    text-align:center;
+
+    width:100%;
+}
+
+.venue-list{
+
+    display:grid;
+
+    gap:22px;
+}
+
+.venue-item{
+
+    position:relative;
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    padding:24px 18px;
+
+    border-radius:28px;
+
+    background:rgba(252,246,239,0.96);
+
+    border:1px solid rgba(239,227,214,0.56);
+
+    box-shadow:
+    0 18px 40px rgba(0,0,0,0.10),
+    0 10px 24px rgba(0,0,0,0.06);
+
+    transition:
+    transform 280ms ease,
+    box-shadow 280ms ease,
+    background-color 280ms ease;
+}
+
+.venue-item:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 24px 54px rgba(0,0,0,0.14),
+    0 12px 36px rgba(0,0,0,0.09);
+}
+
+.venue-item-title{
+
+    font-size:14px;
+
+    letter-spacing:5px;
+
+    text-transform:uppercase;
+
+    color:#7c5d47;
+
+    font-weight:700;
+
+    text-align:center;
+}
+
+.venue-map-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:24px;
+
+    min-height:190px;
+
+    background:#f7efe4;
+
+    box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.32);
+
+    transition:
+    transform 320ms ease,
+    box-shadow 320ms ease;
+}
+
+.venue-map-card:hover{
+
+    transform:translateY(-1px);
+
+    box-shadow:
+    0 16px 45px rgba(0,0,0,0.12),
+    inset 0 0 0 1px rgba(255,255,255,0.28);
+}
+
+.venue-map-preview{
+
+    width:100%;
+
+    height:100%;
+
+    border:0;
+
+    display:block;
+
+    transform-origin:center;
+
+    transition:transform 560ms ease;
+}
+
+.venue-map-card:hover .venue-map-preview{
+
+    transform:scale(1.02);
+}
+
+.venue-map-blocker{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:2;
+
+    cursor:pointer;
+
+    text-decoration:none;
+}
+
+.venue-address{
+
+    text-align:center;
+
+    font-family:'Cormorant Garamond',serif;
+
+    color:#7b5f4e;
+
+    line-height:1.92;
+
+    font-size:15px;
+
+    font-weight:500;
+
+    letter-spacing:0.32px;
+
+    text-shadow:0 1px 2px rgba(255,250,244,0.16);
+}
+
+.venue-action-row{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:14px;
+
+    flex-wrap:wrap;
+}
+
+.venue-icon{
+
+    width:60px;
+
+    height:60px;
+
+    min-width:60px;
+
+    border-radius:16px;
+
+    background:rgba(255,249,241,0.96);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    box-shadow:
+    inset 0 1px 3px rgba(255,255,255,0.7),
+    0 6px 18px rgba(0,0,0,0.08);
+}
+
+.venue-icon img{
+
+    width:48px;
+
+    height:auto;
+
+    display:block;
+}
+
+.venue-btn{
+
+    position:relative;
+
+    width:100%;
+
+    max-width:210px;
+
+    padding:18px 22px;
+
+    border-radius:16px;
+
+    background:
+    linear-gradient(135deg, #7b001f, #c2184b);
+
+    color:white;
+
+    text-decoration:none;
+
+    text-align:center;
+
+    letter-spacing:2px;
+
+    font-weight:700;
+
+    box-shadow:
+    0 0 0 1px rgba(255,215,160,0.25),
+    0 10px 28px rgba(122,0,31,0.22);
+
+    overflow:hidden;
+
+    white-space:nowrap;
+
+    transition:
+    transform 280ms ease,
+    box-shadow 280ms ease,
+    filter 280ms ease;
+}
+
+.venue-btn:hover,
+.venue-btn:focus-visible{
+
+    transform:translateY(-1px);
+
+    box-shadow:
+    0 0 0 1px rgba(255,215,160,0.30),
+    0 16px 38px rgba(122,0,31,0.28);
+}
+
+.venue-btn::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:80%;
+
+    height:100%;
+
+    background:
+    linear-gradient(120deg, transparent, rgba(255,255,255,0.42), transparent);
+
+    transform:skewX(-20deg);
+
+    animation:shine 4s infinite;
+}
+
+.fade-scroll-section,
+.fade-scroll{
+
+    opacity:0;
+
+    transform:translateY(18px);
+
+    transition:opacity 900ms ease, transform 900ms ease;
+}
+
+.fade-scroll.visible,
+.fade-scroll-section.visible{
+
+    opacity:1;
+
+    transform:translateY(0);
+}
+
 /* FOOTER */
 
 .footer{
@@ -923,5 +1265,149 @@ body{
     .invitation-card{
 
         padding:42px 18px 36px;
+    }
+
+    .venue-section-card{
+
+        padding:28px 16px;
+    }
+
+    .venue-map-card{
+
+        min-height:170px;
+    }
+
+    .venue-action-row{
+
+        flex-direction:column;
+
+        align-items:stretch;
+    }
+
+    .venue-btn{
+
+        max-width:none;
+
+        width:100%;
+    }
+
+    .venue-icon{
+
+        margin-bottom:8px;
+    }
+}
+
+/* INTRO OVERLAY - Cinematic intro animation */
+
+body.intro-active{
+    overflow:hidden; /* lock scrolling while intro is active */
+}
+
+/* hide all page content while intro is running (except the overlay) */
+body.intro-active > *:not(#intro-overlay){
+    visibility:hidden;
+    opacity:0;
+    pointer-events:none;
+}
+
+/* when revealing starts, make page visible and animate opacity */
+body.intro-active.intro-revealing > *:not(#intro-overlay){
+    visibility:visible;
+    opacity:1;
+    transition:opacity 900ms cubic-bezier(0.22,1,0.36,1);
+}
+
+#intro-overlay{
+    position:fixed;
+    inset:0;
+    z-index:2000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    pointer-events:auto;
+}
+
+.intro-backdrop{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(5,6,8,0.65), rgba(5,6,8,0.75));
+    backdrop-filter: blur(6px) saturate(110%);
+    -webkit-backdrop-filter: blur(6px) saturate(110%);
+    mix-blend-mode: normal;
+    transition: background 520ms cubic-bezier(0.22,1,0.36,1), backdrop-filter 520ms cubic-bezier(0.22,1,0.36,1), opacity 420ms ease;
+}
+
+/* stronger blur + darker gradient while logo preview is visible */
+#intro-overlay.intro-logo-visible .intro-backdrop{
+    background:linear-gradient(180deg, rgba(2,3,6,0.78), rgba(2,3,6,0.86));
+    backdrop-filter: blur(18px) saturate(120%);
+    -webkit-backdrop-filter: blur(18px) saturate(120%);
+}
+
+.intro-logo-wrap{
+    position:relative;
+    z-index:2002;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:clamp(150px, 32vw, 320px);
+    height:clamp(150px, 32vw, 320px);
+}
+
+.intro-logo{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    transform-origin:center center;
+    opacity:0;
+    transform:scale(0.92);
+    transition:transform 800ms cubic-bezier(0.22,1,0.36,1), opacity 800ms cubic-bezier(0.22,1,0.36,1);
+    will-change:transform, opacity, filter;
+    filter:drop-shadow(0 10px 30px rgba(0,0,0,0.45));
+}
+
+.intro-logo-glow{
+    position:absolute;
+    inset:0;
+    border-radius:20px;
+    pointer-events:none;
+    background:radial-gradient(circle at center, rgba(252,226,178,0.22), transparent 52%);
+    box-shadow:
+      0 18px 90px rgba(235,187,108,0.14),
+      0 10px 40px rgba(222,168,95,0.16),
+      inset 0 0 38px rgba(250,220,170,0.20);
+    filter:blur(14px);
+    opacity:0;
+    transition:opacity 800ms cubic-bezier(0.22,1,0.36,1), transform 800ms cubic-bezier(0.22,1,0.36,1);
+}
+
+/* class applied when logo is visible (fade-in + slight scale up) */
+.intro-logo-visible .intro-logo{
+    opacity:1;
+    transform:scale(1.04);
+}
+
+.intro-logo-visible .intro-logo-glow{
+    opacity:1;
+    transform:scale(1.02);
+}
+
+/* when moving, we apply transform inline to #intro-logo; add a smooth transition fallback */
+#intro-overlay.moving .intro-logo{
+    transition:transform 1100ms cubic-bezier(0.22,1,0.36,1), opacity 520ms ease;
+}
+
+/* fade overlay out at the end */
+#intro-overlay.faded{
+    opacity:0;
+    transition:opacity 420ms ease;
+    pointer-events:none;
+}
+
+@media(prefers-reduced-motion:reduce){
+    .intro-logo,
+    body.intro-active.intro-revealing > *:not(#intro-overlay){
+        transition:none !important;
+        animation:none !important;
     }
 }
