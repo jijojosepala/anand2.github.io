@@ -1300,21 +1300,19 @@ body{
 /* INTRO OVERLAY - Cinematic intro animation */
 
 body.intro-active{
-    overflow:hidden; /* lock scrolling while intro is active */
+    overflow:hidden;
 }
 
-/* hide all page content while intro is running (except the overlay) */
 body.intro-active > *:not(#intro-overlay){
     visibility:hidden;
     opacity:0;
     pointer-events:none;
 }
 
-/* when revealing starts, make page visible and animate opacity */
 body.intro-active.intro-revealing > *:not(#intro-overlay){
     visibility:visible;
     opacity:1;
-    transition:opacity 900ms cubic-bezier(0.22,1,0.36,1);
+    transition:opacity 1200ms cubic-bezier(0.22,1,0.36,1);
 }
 
 #intro-overlay{
@@ -1325,33 +1323,83 @@ body.intro-active.intro-revealing > *:not(#intro-overlay){
     align-items:center;
     justify-content:center;
     pointer-events:auto;
+    cursor:pointer;
 }
 
 .intro-backdrop{
     position:absolute;
     inset:0;
-    background:linear-gradient(180deg, rgba(5,6,8,0.65), rgba(5,6,8,0.75));
-    backdrop-filter: blur(6px) saturate(110%);
-    -webkit-backdrop-filter: blur(6px) saturate(110%);
-    mix-blend-mode: normal;
-    transition: background 520ms cubic-bezier(0.22,1,0.36,1), backdrop-filter 520ms cubic-bezier(0.22,1,0.36,1), opacity 420ms ease;
+    background:radial-gradient(circle at center, rgba(12,12,16,0.85), rgba(4,4,6,0.95));
+    backdrop-filter: blur(12px) saturate(110%);
+    -webkit-backdrop-filter: blur(12px) saturate(110%);
+    transition: opacity 800ms ease;
+    z-index:1;
 }
 
-/* stronger blur + darker gradient while logo preview is visible */
-#intro-overlay.intro-logo-visible .intro-backdrop{
-    background:linear-gradient(180deg, rgba(2,3,6,0.78), rgba(2,3,6,0.86));
-    backdrop-filter: blur(18px) saturate(120%);
-    -webkit-backdrop-filter: blur(18px) saturate(120%);
+.intro-envelope{
+    position:absolute;
+    inset:0;
+    z-index:2;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.envelope-panel{
+    position:absolute;
+    top:-10%;
+    bottom:-10%;
+    width:65vw;
+    background: linear-gradient(135deg, #f9f5f0 0%, #e2cdb6 50%, #c4a686 100%);
+    box-shadow: 0 0 60px rgba(0,0,0,0.8), inset 0 0 80px rgba(139,100,50,0.08);
+    transition: transform 1100ms cubic-bezier(0.22,1,0.36,1);
+    will-change: transform;
+}
+
+.envelope-left{
+    left:-15vw;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    transform-origin: left center;
+    background: linear-gradient(110deg, #f8f3ec 0%, #e8d5c0 80%, #cca984 100%);
+}
+
+.envelope-right{
+    right:-15vw;
+    clip-path: polygon(100% 0, 0 50%, 100% 100%);
+    transform-origin: right center;
+    background: linear-gradient(-110deg, #f8f3ec 0%, #e8d5c0 80%, #cca984 100%);
+}
+
+#intro-overlay.opening .envelope-left{
+    transform: translateX(-100%);
+}
+
+#intro-overlay.opening .envelope-right{
+    transform: translateX(100%);
+}
+
+.intro-content{
+    position:relative;
+    z-index:3;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
 }
 
 .intro-logo-wrap{
     position:relative;
-    z-index:2002;
     display:flex;
     align-items:center;
     justify-content:center;
-    width:clamp(150px, 32vw, 320px);
-    height:clamp(150px, 32vw, 320px);
+    width:clamp(160px, 35vw, 340px);
+    height:clamp(160px, 35vw, 340px);
+    animation: floatingLogo 4s ease-in-out infinite;
+}
+
+@keyframes floatingLogo{
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
 }
 
 .intro-logo{
@@ -1359,45 +1407,61 @@ body.intro-active.intro-revealing > *:not(#intro-overlay){
     height:100%;
     object-fit:contain;
     transform-origin:center center;
-    opacity:0;
-    transform:scale(0.92);
-    transition:transform 800ms cubic-bezier(0.22,1,0.36,1), opacity 800ms cubic-bezier(0.22,1,0.36,1);
-    will-change:transform, opacity, filter;
-    filter:drop-shadow(0 10px 30px rgba(0,0,0,0.45));
+    filter:drop-shadow(0 15px 35px rgba(0,0,0,0.5));
+    will-change:transform, opacity;
 }
 
 .intro-logo-glow{
     position:absolute;
-    inset:0;
-    border-radius:20px;
+    inset:-20%;
+    border-radius:50%;
     pointer-events:none;
-    background:radial-gradient(circle at center, rgba(252,226,178,0.22), transparent 52%);
-    box-shadow:
-      0 18px 90px rgba(235,187,108,0.14),
-      0 10px 40px rgba(222,168,95,0.16),
-      inset 0 0 38px rgba(250,220,170,0.20);
-    filter:blur(14px);
+    background:radial-gradient(circle at center, rgba(232,194,142,0.35), transparent 60%);
+    filter:blur(20px);
+    animation: glowingLogo 4s ease-in-out infinite;
+}
+
+@keyframes glowingLogo{
+    0% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.08); }
+    100% { opacity: 0.5; transform: scale(1); }
+}
+
+.intro-tap-text{
+    margin-top: 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 12px;
+    color: #f7e8dc;
+    text-shadow: 0 0 15px rgba(232,194,142,0.6);
+    animation: tapBreathing 2.5s ease-in-out infinite;
+    text-align:center;
+}
+
+@keyframes tapBreathing{
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+}
+
+#intro-overlay.opening .intro-logo-wrap,
+#intro-overlay.opening .intro-tap-text,
+#intro-overlay.opening .intro-logo-glow{
+    animation: none;
+}
+
+#intro-overlay.opening .intro-tap-text,
+#intro-overlay.opening .intro-logo-glow{
     opacity:0;
-    transition:opacity 800ms cubic-bezier(0.22,1,0.36,1), transform 800ms cubic-bezier(0.22,1,0.36,1);
+    transition: opacity 400ms ease;
 }
 
-/* class applied when logo is visible (fade-in + slight scale up) */
-.intro-logo-visible .intro-logo{
-    opacity:1;
-    transform:scale(1.04);
+#intro-overlay.opening .intro-backdrop{
+    opacity:0;
+    transition: opacity 1200ms ease 300ms;
 }
 
-.intro-logo-visible .intro-logo-glow{
-    opacity:1;
-    transform:scale(1.02);
-}
-
-/* when moving, we apply transform inline to #intro-logo; add a smooth transition fallback */
-#intro-overlay.moving .intro-logo{
-    transition:transform 1100ms cubic-bezier(0.22,1,0.36,1), opacity 520ms ease;
-}
-
-/* fade overlay out at the end */
 #intro-overlay.faded{
     opacity:0;
     transition:opacity 420ms ease;
@@ -1405,9 +1469,7 @@ body.intro-active.intro-revealing > *:not(#intro-overlay){
 }
 
 @media(prefers-reduced-motion:reduce){
-    .intro-logo,
-    body.intro-active.intro-revealing > *:not(#intro-overlay){
-        transition:none !important;
+    .intro-logo-wrap, .intro-logo-glow, .intro-tap-text{
         animation:none !important;
     }
 }
@@ -2001,71 +2063,4 @@ iframe{
     white-space:normal;
 }
 
-/* ===================
-   MUSIC CONTROL UI
-   =================== */
 
-.music-toggle{
-    position:fixed;
-    right:calc(18px + env(safe-area-inset-right));
-    bottom:calc(18px + env(safe-area-inset-bottom));
-    width:56px;
-    height:56px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    z-index:1600;
-    color:#fff7f2;
-    font-size:20px;
-    text-align:center;
-    backdrop-filter:blur(8px) saturate(120%);
-    -webkit-backdrop-filter:blur(8px) saturate(120%);
-    background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-    border:1px solid rgba(255,245,230,0.10);
-    box-shadow:
-        0 8px 30px rgba(120,80,50,0.08),
-        0 2px 6px rgba(0,0,0,0.40);
-    cursor:pointer;
-    transition:transform 200ms ease, box-shadow 280ms ease, opacity 200ms ease;
-}
-
-.music-toggle:active{ transform:translateY(1px) scale(0.99); }
-
-.music-toggle:focus-visible{
-    outline:2px solid rgba(200,160,120,0.18);
-    outline-offset:4px;
-}
-
-.music-toggle .music-icon{
-    display:inline-block;
-    transform-origin:center;
-    transition:transform 360ms cubic-bezier(0.22,1,0.36,1);
-}
-
-.music-toggle.active{
-    box-shadow:
-        0 12px 46px rgba(200,150,100,0.16),
-        0 0 28px rgba(230,190,130,0.10);
-    animation:musicPulse 3200ms infinite;
-}
-
-.music-toggle:not(.active){
-    opacity:0.92;
-    filter:saturate(0.92) contrast(0.98);
-}
-
-@keyframes musicPulse{
-    0%{ transform:scale(1); box-shadow:0 10px 36px rgba(200,150,100,0.06); }
-    50%{ transform:scale(1.02); box-shadow:0 18px 54px rgba(200,150,100,0.12); }
-    100%{ transform:scale(1); box-shadow:0 10px 36px rgba(200,150,100,0.06); }
-}
-
-/* responsive sizing for small phones */
-@media (max-width:420px){
-    .music-toggle{ width:48px; height:48px; font-size:18px; right:calc(12px + env(safe-area-inset-right)); bottom:calc(12px + env(safe-area-inset-bottom)); }
-}
-
-/* ensure music control sits above most UI but below intro overlay (intro z-index:2000) */
-.music-toggle{ z-index:1600; }

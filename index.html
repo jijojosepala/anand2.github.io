@@ -38,22 +38,25 @@
 <body>
 
     <div id="intro-overlay" aria-hidden="true">
-
         <div class="intro-backdrop"></div>
-
-        <div class="intro-logo-wrap" role="img" aria-label="AN Logo Intro">
-
-            <div class="intro-logo-glow"></div>
-
-            <img
-                src="AN_logo.png"
-                alt="AN Logo"
-                id="intro-logo"
-                class="intro-logo"
-            >
-
+        
+        <div class="intro-envelope">
+            <div class="envelope-panel envelope-left"></div>
+            <div class="envelope-panel envelope-right"></div>
         </div>
 
+        <div class="intro-content">
+            <div class="intro-logo-wrap" role="img" aria-label="AN Logo Intro">
+                <div class="intro-logo-glow"></div>
+                <img
+                    src="AN_logo.png"
+                    alt="AN Logo"
+                    id="intro-logo"
+                    class="intro-logo"
+                >
+            </div>
+            <div class="intro-tap-text">TAP TO OPEN</div>
+        </div>
     </div>
 
     <div class="bg-glow"></div>
@@ -438,101 +441,92 @@
         const introLogo = document.getElementById('intro-logo');
         const navbarLogo = document.querySelector('.navbar .main-logo');
 
-        if(!overlay || !introLogo){
-            // nothing to do
-            return;
-        }
+        let isOpened = false;
 
-        // Lock scroll and mark intro active
-        const prevOverflow = document.documentElement.style.overflow || '';
-        body.classList.add('intro-active');
-        document.documentElement.style.overflow = 'hidden';
+        if(overlay && introLogo){
+            const prevOverflow = document.documentElement.style.overflow || '';
+            body.classList.add('intro-active');
+            document.documentElement.style.overflow = 'hidden';
 
-        // Ensure navbar logo is visually hidden until merge
-        if(navbarLogo){
-            navbarLogo.style.transition = 'opacity 520ms cubic-bezier(0.22,1,0.36,1)';
-            navbarLogo.style.opacity = '0';
-            navbarLogo.style.willChange = 'opacity, transform';
-        }
-
-        // Start the initial fade + scale in (0.8s)
-        requestAnimationFrame(()=>{
-            overlay.classList.add('intro-logo-visible');
-        });
-
-        // Timing config
-        const fadeIn = 800; // ms
-        const hold = 1000; // ms (reduced from 1500)
-        const moveDuration = 1100; // ms (slightly increased for smoother motion)
-
-        function easeOut(t){ return 1 - Math.pow(1-t, 3); }
-
-        // After fade + hold -> move logo to navbar
-        setTimeout(()=>{
-            // Prepare reveal of page content: make it visible and animate opacity during movement
-            body.classList.add('intro-revealing');
-
-            // Compute target metrics
             if(navbarLogo){
-                const targetRect = navbarLogo.getBoundingClientRect();
-                const srcRect = introLogo.getBoundingClientRect();
-
-                const srcCenterX = srcRect.left + srcRect.width/2;
-                const srcCenterY = srcRect.top + srcRect.height/2;
-                const tgtCenterX = targetRect.left + targetRect.width/2;
-                const tgtCenterY = targetRect.top + targetRect.height/2;
-
-                const deltaX = tgtCenterX - srcCenterX;
-                const deltaY = tgtCenterY - srcCenterY;
-
-                const scale = (targetRect.width / srcRect.width) || 1;
-
-                // Force layer promotion
-                introLogo.style.willChange = 'transform, opacity';
-
-                // Apply movement with transform using requestAnimationFrame for smoothness
-                overlay.classList.add('moving');
-
-                // Use transform to move and scale
-                requestAnimationFrame(()=>{
-                    introLogo.style.transition = `transform ${moveDuration}ms cubic-bezier(0.22,1,0.36,1), opacity ${Math.floor(moveDuration/2)}ms ease`;
-                    introLogo.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0) scale(${scale})`;
-                    introLogo.style.opacity = '0.98';
-                });
-
-                // Reveal navbar logo slightly before the overlay finishes so they visually merge
-                setTimeout(()=>{
-                    if(navbarLogo){ navbarLogo.style.opacity = '1'; }
-                }, Math.max(0, moveDuration - 160));
-
-                // After movement completes, fade out overlay and cleanup
-                setTimeout(()=>{
-                    overlay.classList.add('faded');
-
-                    // restore scroll and remove intro markers after fade
-                    setTimeout(()=>{
-                        body.classList.remove('intro-active', 'intro-revealing');
-                        document.documentElement.style.overflow = prevOverflow;
-                        try{ overlay.parentNode && overlay.parentNode.removeChild(overlay); }catch(e){}
-                    }, 480);
-
-                }, moveDuration + 40);
-
-            } else {
-                // No navbar target found - just fade overlay away after a shorter move
-                overlay.classList.add('faded');
-                setTimeout(()=>{ body.classList.remove('intro-active'); document.documentElement.style.overflow = prevOverflow; try{ overlay.parentNode && overlay.parentNode.removeChild(overlay); }catch(e){} }, 900);
+                navbarLogo.style.transition = 'opacity 520ms cubic-bezier(0.22,1,0.36,1)';
+                navbarLogo.style.opacity = '0';
+                navbarLogo.style.willChange = 'opacity, transform';
             }
 
-        }, fadeIn + hold);
+            function openInvitation(e){
+                if(isOpened) return;
+                isOpened = true;
 
-        // Safety: if user prefers reduced motion, skip animations
-        if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-            overlay.classList.add('intro-logo-visible');
-            body.classList.add('intro-revealing');
-            setTimeout(()=>{ overlay.parentNode && overlay.parentNode.removeChild(overlay); body.classList.remove('intro-active'); document.documentElement.style.overflow = prevOverflow; }, 600);
+                const bgMusic = document.getElementById('bg-music');
+
+                if (bgMusic) {
+                    bgMusic.volume = 0.4;
+
+                    bgMusic.play()
+                        .then(() => {
+                            console.log('Wedding music started');
+                        })
+                        .catch((err) => {
+                            console.error('Music playback failed:', err);
+                        });
+                }
+
+                // 2. Triangles open
+                overlay.classList.add('opening');
+
+                // 3. Logo transition after delay
+                setTimeout(()=>{
+                    body.classList.add('intro-revealing');
+
+                    if(navbarLogo){
+                        const targetRect = navbarLogo.getBoundingClientRect();
+                        const srcRect = introLogo.getBoundingClientRect();
+
+                        const scale = (targetRect.width / srcRect.width) || 1;
+                        
+                        const srcCenterX = srcRect.left + srcRect.width/2;
+                        const srcCenterY = srcRect.top + srcRect.height/2;
+                        const tgtCenterX = targetRect.left + targetRect.width/2;
+                        const tgtCenterY = targetRect.top + targetRect.height/2;
+
+                        const deltaX = tgtCenterX - srcCenterX;
+                        const deltaY = tgtCenterY - srcCenterY;
+
+                        introLogo.style.willChange = 'transform, opacity';
+                        
+                        requestAnimationFrame(()=>{
+                            introLogo.style.transition = `transform 1100ms cubic-bezier(0.22,1,0.36,1), opacity 550ms ease`;
+                            introLogo.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0) scale(${scale})`;
+                        });
+
+                        setTimeout(()=>{
+                            if(navbarLogo){ navbarLogo.style.opacity = '1'; }
+                        }, 1100 - 160);
+
+                        setTimeout(()=>{
+                            overlay.classList.add('faded');
+                            setTimeout(()=>{
+                                body.classList.remove('intro-active', 'intro-revealing');
+                                document.documentElement.style.overflow = prevOverflow;
+                                if(overlay.parentNode) overlay.parentNode.removeChild(overlay);
+                            }, 480);
+                        }, 1100 + 40);
+
+                    } else {
+                        overlay.classList.add('faded');
+                        setTimeout(()=>{
+                            body.classList.remove('intro-active', 'intro-revealing');
+                            document.documentElement.style.overflow = prevOverflow;
+                            if(overlay.parentNode) overlay.parentNode.removeChild(overlay);
+                        }, 600);
+                    }
+                }, 180);
+            }
+
+            overlay.addEventListener('pointerdown', openInvitation, {once:true});
+            overlay.addEventListener('click', openInvitation, {once:true});
         }
-
     })();
     </script>
 
@@ -555,140 +549,12 @@
     })();
     </script>
 
-    <!-- BACKGROUND MUSIC: HTML5 audio + floating control -->
-    <audio id="bg-music" preload="auto" loop src="wedding_song.mp3" aria-hidden="true"></audio>
+    <!-- BACKGROUND MUSIC: HTML5 audio -->
+    <audio id="bg-music" preload="auto" loop playsinline>
+        <source src="wedding_song.mp3" type="audio/mpeg">
+    </audio>
 
-    <button id="music-toggle" class="music-toggle" aria-pressed="false" aria-label="Toggle background music">
-        <span class="music-icon" aria-hidden="true">♪</span>
-    </button>
 
-    <script>
-    (function(){
-        const audio = document.getElementById('bg-music');
-        const btn = document.getElementById('music-toggle');
-        if(!audio || !btn) return;
-
-        const icon = btn.querySelector('.music-icon');
-        const TARGET_VOLUME = 0.4; // soft and elegant
-        const FADE_MS = 2000;
-        let isActive = false; // visual state
-        let interactionBound = false;
-
-        // Helper: fade volume to target over duration
-        function fadeVolumeTo(target, duration){
-            if(typeof target !== 'number') return;
-            const start = performance.now();
-            const from = Math.max(0, Math.min(1, audio.volume));
-            const delta = target - from;
-            if(duration <= 0){ audio.volume = target; return; }
-            function step(now){
-                const t = Math.min(1, (now - start) / duration);
-                audio.volume = Math.max(0, Math.min(1, from + delta * t));
-                if(t < 1) requestAnimationFrame(step);
-            }
-            requestAnimationFrame(step);
-        }
-
-        function setVisualActive(active){
-            isActive = !!active;
-            if(isActive){
-                btn.classList.add('active');
-                btn.setAttribute('aria-pressed','true');
-                icon.textContent = '♪';
-            } else {
-                btn.classList.remove('active');
-                btn.setAttribute('aria-pressed','false');
-                icon.textContent = '🔇';
-            }
-        }
-
-        // Attempt autoplay with volume 0 (so browsers that allow muted autoplay can start playback)
-        async function tryAutoplay(){
-            try {
-                audio.volume = 0;
-                audio.muted = false; // don't set persistent muted, use volume envelope
-                await audio.play();
-                // If intro overlay present, keep volume 0 and reveal later; otherwise fade in
-                if(!document.getElementById('intro-overlay')){
-                    fadeVolumeTo(TARGET_VOLUME, FADE_MS);
-                }
-                setVisualActive(true);
-            } catch(err){
-                // Autoplay blocked with sound — wait for first user interaction
-                setupInteractionUnlock();
-            }
-        }
-
-        function setupInteractionUnlock(){
-            if(interactionBound) return;
-            interactionBound = true;
-            const onFirst = async function(){
-                try{ audio.volume = 0; await audio.play(); fadeVolumeTo(TARGET_VOLUME, FADE_MS); setVisualActive(true); }
-                catch(e){}
-                removeListeners();
-            };
-            const events = ['touchstart','click','scroll','keydown'];
-            events.forEach(ev => window.addEventListener(ev, onFirst, {passive:true, once:true}));
-            // store remove function
-            function removeListeners(){ events.forEach(ev => window.removeEventListener(ev, onFirst)); }
-        }
-
-        // Integrate with intro overlay: if intro exists, attempt autoplay muted and fade in when overlay is removed
-        (function integrateWithIntro(){
-            const overlay = document.getElementById('intro-overlay');
-            if(!overlay){ tryAutoplay(); return; }
-
-            // Try autoplay while overlay is present (keeps volume 0). If blocked, fallback will bind interactions.
-            tryAutoplay();
-
-            // Watch for overlay removal or for body leaving intro-active state
-            const observer = new MutationObserver(() => {
-                if(!document.getElementById('intro-overlay') || !document.body.classList.contains('intro-active')){
-                    // reveal time: fade audio to target if playback already started
-                    if(!audio.paused){ fadeVolumeTo(TARGET_VOLUME, FADE_MS); setVisualActive(true); }
-                    observer.disconnect();
-                }
-            });
-            observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-            // also watch for DOM removal
-            const bodyObserver = new MutationObserver(() => {
-                if(!document.getElementById('intro-overlay')){ if(!audio.paused) fadeVolumeTo(TARGET_VOLUME, FADE_MS); bodyObserver.disconnect(); }
-            });
-            bodyObserver.observe(document.body, { childList: true, subtree: true });
-        })();
-
-        // Toggle button behaviour: mute/unmute while preserving playback position
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            if(audio.paused){
-                // If paused, try to play (user explicitly asked)
-                audio.play().then(()=>{ fadeVolumeTo(TARGET_VOLUME, 600); setVisualActive(true); }).catch(()=>{});
-                setupInteractionUnlock();
-                return;
-            }
-
-            // toggle mute state
-            if(audio.muted || audio.volume === 0){
-                audio.muted = false;
-                fadeVolumeTo(TARGET_VOLUME, 600);
-                setVisualActive(true);
-            } else {
-                // smooth mute: fade to 0 then set muted flag
-                fadeVolumeTo(0, 400);
-                setTimeout(()=>{ audio.muted = true; setVisualActive(false); }, 420);
-            }
-        });
-
-        // Kick off autoplay attempt on load
-        tryAutoplay();
-
-        // Clean up when navigating away
-        window.addEventListener('pagehide', () => {
-            try{ audio.pause(); }catch(e){}
-        });
-
-    })();
-    </script>
 
 </body>
 
